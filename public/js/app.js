@@ -35,22 +35,14 @@ class TimersDashboard extends React.Component {
   }
   
   class ToggleableTimerForm extends React.Component {
-    render() {
-      if (this.props.isOpen) {
-        return (
-          <TimerForm />
-        );
-      } else {
-        return (
-          <div className='ui basic content center aligned segment'>
-            <button className='ui basic button icon'>
-              <i className='plus icon' />
-            </button>
-          </div>
-        );
-      }
+    state = {
+      isOpen: false,
     }
   }
+
+  handleFormOpen = () => {
+    this.ListeningStateChangedEvent({ isOpen: true});
+  };
   
   class EditableTimerList extends React.Component {
     render() {
@@ -73,10 +65,14 @@ class TimersDashboard extends React.Component {
   }
   
   class EditableTimer extends React.Component {
+    state ={
+      editFormOpen: false,
+    };
     render() {
-      if (this.props.editFormOpen) {
+      if (this.state.editFormOpen) {
         return (
           <TimerForm
+            id={this.props.id}
             title={this.props.title}
             project={this.props.project}
           />
@@ -84,6 +80,7 @@ class TimersDashboard extends React.Component {
       } else {
         return (
           <Timer
+            id={this.props.id}
             title={this.props.title}
             project={this.props.project}
             elapsed={this.props.elapsed}
